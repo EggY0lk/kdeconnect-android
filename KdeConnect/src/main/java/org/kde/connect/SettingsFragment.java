@@ -2,7 +2,10 @@ package org.kde.connect;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 
@@ -30,6 +33,13 @@ public class SettingsFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
+        if (Build.VERSION.SDK_INT < 11 || Build.VERSION.SDK_INT == 18) {
+            CheckBoxPreference p = (CheckBoxPreference)findPreference("clipboard_interface");
+            p.setEnabled(false);
+            p.setChecked(false);
+            p.setSelectable(false);
+            p.setSummary(R.string.app_not_available);
+        }
     }
 
     @Override
