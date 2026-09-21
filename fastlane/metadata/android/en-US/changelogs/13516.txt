@@ -1,4 +1,4 @@
-1.35.15:
+1.35.16:
 - Remote Keyboard no longer needs the custom keyboard
 - Support sharing multiple URLs
 - Added Clear Output option in Run Command
