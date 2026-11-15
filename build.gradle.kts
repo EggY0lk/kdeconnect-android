@@ -36,11 +36,11 @@ kotlin {
 
 android {
     namespace = "org.kde.kdeconnect_tp"
-    compileSdk = 30
+    compileSdk = 34
     defaultConfig {
         applicationId = "org.kde.kdeconnect_tp"
         minSdk = 23
-        targetSdk = 30
+        targetSdk = 34
         versionCode = 13703
         versionName = "1.37.3"
         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
