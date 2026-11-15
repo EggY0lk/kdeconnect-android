@@ -11,6 +11,15 @@ KDE Connect is a multi-platform app that allows your devices to communicate (eg:
 
 All this without wires, over the already existing Wi-Fi network, and using TLS encryption.
 
+## About this fork
+
+This fork includes fixes for Android 11+ scoped storage:
+
+- **File receive fix**: On Android 11+, scoped storage blocks direct file access to public shared directories. Received files now save to the app's external files directory instead of failing.
+- **Auto-copy to public Downloads**: Received files are automatically copied to `Download/kde_connect/` so they appear in Gallery, Photos, and your file manager immediately.
+
+This fork is maintained separately from the upstream KDE project.
+
 ## About this app
 
 This is a native Android port of the KDE Connect Qt app. You will find a more complete readme about KDE Connect [here](https://invent.kde.org/network/kdeconnect-kde/).
@@ -18,6 +27,12 @@ This is a native Android port of the KDE Connect Qt app. You will find a more co
 ## How to install this app
 
 You can install this app from the [Play Store](https://play.google.com/store/apps/details?id=org.kde.kdeconnect_tp) as well as [F-Droid](https://f-droid.org/repository/browse/?fdid=org.kde.kdeconnect_tp). Note you will also need to install the [desktop app](https://invent.kde.org/network/kdeconnect-kde) for it to work.
+
+Alternatively, you can download the latest build of this fork from the [Releases](https://github.com/EggY0lk/kdeconnect-android/releases) page and sideload the APK:
+
+```
+adb install kdeconnect-android-debug.apk
+```
 
 ## Contributing
 
