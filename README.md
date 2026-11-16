@@ -20,17 +20,9 @@ This fork includes fixes for Android 11+ scoped storage:
 
 This fork is maintained separately from the upstream KDE project.
 
-## About this app
-
-This is a native Android port of the KDE Connect Qt app. You will find a more complete readme about KDE Connect [here](https://invent.kde.org/network/kdeconnect-kde/).
-
 ## How to install this app
 
-## How to install this app
-
-You can install this app from the [Play Store](https://play.google.com/store/apps/details?id=org.kde.kdeconnect_tp) as well as [F-Droid](https://f-droid.org/repository/browse/?fdid=org.kde.kdeconnect_tp). Note you will also need to install the [desktop app](https://invent.kde.org/network/kdeconnect-kde) for it to work.
-
-Alternatively, you can download the latest build of this fork from the [Releases](https://github.com/EggY0lk/kdeconnect-android/releases) page and sideload the APK:
+Download the latest build from the [Releases](https://github.com/EggY0lk/kdeconnect-android/releases) page and sideload the APK:
 
 ```
 adb install kdeconnect-android-debug.apk
@@ -42,25 +34,8 @@ adb install kdeconnect-android-debug.apk
 
 **Fork fixes:** Scoped storage file receive fix and auto-copy to `Download/kde_connect/` implemented directly with Hermes Agent (Nous Research), powered by **nvidia/nemotron-3.5-super-vl-120b-a12b** (provider: NVIDIA).
 
-## Contributing
-
-A lot of useful information, including how to get started working on KDE Connect and how to connect with the current developers, is on our [KDE Community Wiki page](https://community.kde.org/KDEConnect)
-
-For bug reporting, please use [KDE's Bugzilla](https://bugs.kde.org). Please do not use the issue tracker in GitLab since we want to keep everything in one place.
-
-To contribute patches, use [KDE Connect's Gitlab](https://invent.kde.org/network/kdeconnect-android/).
-On Gitlab (as well as on our [old Phabricator](https://phabricator.kde.org/tag/kde_connect/)) you can find a task list with stuff to do and links to other relevant resources.
-It is a good idea to also subscribe to the [KDE Connect mailing list](https://mail.kde.org/mailman/listinfo/kdeconnect).
-
-Please know that all translations for all KDE apps are handled by the [localization team](https://l10n.kde.org/). If you would like to submit a translation, that should be done by working with the proper team for that language.
-
 ## License
 [GNU GPL v2](https://www.gnu.org/licenses/gpl-2.0.html) and [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 
 If you are reading this from GitHub, you should know that this is a fork of the [KDE Project repo](https://invent.kde.org/network/kdeconnect-android/) with scoped storage fixes applied.
 
-## Credits
-
-**Original app:** KDE Connect is developed by the KDE community. Original Android port by Albert Vaca Cintora and contributors. Source: https://invent.kde.org/network/kdeconnect-android/
-
-**Fork fixes:** Scoped storage file receive fix and auto-copy to `Download/kde_connect/` implemented directly with Hermes Agent (Nous Research), powered by **nvidia/nemotron-3.5-super-vl-120b-a12b** (provider: NVIDIA).
