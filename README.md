@@ -22,11 +22,17 @@ This fork is maintained separately from the upstream KDE project.
 
 ## How to install this app
 
-Download the latest build from the [Releases](https://github.com/EggY0lk/kdeconnect-android/releases) page and sideload the APK:
+Download the latest build from the [Releases](https://github.com/EggY0lk/kdeconnect-android/releases) page and install it either way:
+
+**Via ADB** (phone must be connected with USB debugging enabled):
 
 ```
 adb install kdeconnect-android-debug.apk
 ```
+
+**Directly on your phone:**
+
+Download the `.apk` file directly to your phone and open it to install.
 
 ## Credits
 
