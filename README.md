@@ -26,6 +26,8 @@ This is a native Android port of the KDE Connect Qt app. You will find a more co
 
 ## How to install this app
 
+## How to install this app
+
 You can install this app from the [Play Store](https://play.google.com/store/apps/details?id=org.kde.kdeconnect_tp) as well as [F-Droid](https://f-droid.org/repository/browse/?fdid=org.kde.kdeconnect_tp). Note you will also need to install the [desktop app](https://invent.kde.org/network/kdeconnect-kde) for it to work.
 
 Alternatively, you can download the latest build of this fork from the [Releases](https://github.com/EggY0lk/kdeconnect-android/releases) page and sideload the APK:
@@ -33,6 +35,12 @@ Alternatively, you can download the latest build of this fork from the [Releases
 ```
 adb install kdeconnect-android-debug.apk
 ```
+
+## Credits
+
+**Original app:** KDE Connect is developed by the KDE community. Original Android port by Albert Vaca Cintora and contributors. Source: https://invent.kde.org/network/kdeconnect-android/
+
+**Fork fixes:** Scoped storage file receive fix and auto-copy to `Download/kde_connect/` implemented directly with Hermes Agent (Nous Research), powered by **nvidia/nemotron-3.5-super-vl-120b-a12b** (provider: NVIDIA).
 
 ## Contributing
 
