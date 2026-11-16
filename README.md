@@ -49,4 +49,4 @@ Please know that all translations for all KDE apps are handled by the [localizat
 ## License
 [GNU GPL v2](https://www.gnu.org/licenses/gpl-2.0.html) and [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 
-If you are reading this from GitHub, you should know that this is just a mirror of the [KDE Project repo](https://invent.kde.org/network/kdeconnect-android/).
+If you are reading this from GitHub, you should know that this is a fork of the [KDE Project repo](https://invent.kde.org/network/kdeconnect-android/) with scoped storage fixes applied.
