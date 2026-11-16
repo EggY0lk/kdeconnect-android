@@ -53,4 +53,6 @@ If you are reading this from GitHub, you should know that this is a fork of the 
 
 ## Credits
 
-Fork fixes (scoped storage file receive, auto-copy to Download/kde_connect/) implemented with **Hermes Agent** (Nous Research), using **OpenCode CLI**, powered by **nvidia/nemotron-3.5-super-vl-120b-a12b** (provider: NVIDIA).
+**Original app:** KDE Connect is developed by the KDE community. Original Android port by Albert Vaca Cintora and contributors. Source: https://invent.kde.org/network/kdeconnect-android/
+
+**Fork fixes:** Scoped storage file receive fix and auto-copy to `Download/kde_connect/` implemented directly with Hermes Agent (Nous Research), powered by **nvidia/nemotron-3.5-super-vl-120b-a12b** (provider: NVIDIA).
