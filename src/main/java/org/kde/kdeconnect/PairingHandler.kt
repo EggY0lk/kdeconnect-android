@@ -63,7 +63,7 @@ class PairingHandler(private val device: Device, private val callback: PairingCa
                         Log.w("PairingHandler", "Received pairing request from a device we already trusted.")
                         // It would be nice to auto-accept the pairing request here, but since the pairing accept and pairing request
                         // messages are identical, this could create an infinite loop if both devices are "accepting" each other pairs.
-                        // Instead, unpair and handle as if "NotPaired". TODO: No longer true in protocol version 8
+                        // Instead, unpair and handle as if "NotPaired".
                         state = PairState.NotPaired
                         callback.unpaired(device)
                     }

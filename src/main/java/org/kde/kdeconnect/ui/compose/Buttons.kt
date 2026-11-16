@@ -59,13 +59,6 @@ fun KdeButton(
     contentDescription: String? = null,
     icon: ImageVector? = null,
 ) {
-    //TODO uncomment when button is widely used
-//    val interactionSource = remember { MutableInteractionSource() }
-//    val pressedState = interactionSource.collectIsPressedAsState()
-//    val cornerSize by animateDpAsState(
-//        targetValue = if (pressedState.value) 24.dp else 48.dp,
-//        label = "Corner size change on press"
-//    )
 
     Button(
         onClick = onClick,

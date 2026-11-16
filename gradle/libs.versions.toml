@@ -10,6 +10,7 @@ coil = "3.6.3"
 constraintlayoutCompose = "1.1.2"
 coreKtx = "1.19.1"
 dependencyLicenseReport = "3.1.5"
+detekt = "1.23.0"
 documentfile = "1.1.0"
 gridlayout = "1.1.0"
 jsonassert = "1.5.3"
@@ -94,3 +95,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspPlugin" }
 dependencyLicenseReport = { id = "com.github.jk1.dependency-license-report", version.ref = "dependencyLicenseReport" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

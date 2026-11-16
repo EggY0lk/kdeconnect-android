@@ -40,6 +40,8 @@ Download the `.apk` file directly to your phone and open it to install.
 
 **Fork fixes:** Scoped storage file receive fix and auto-copy to `Download/kde_connect/` implemented directly with Hermes Agent (Nous Research), powered by **nvidia/nemotron-3.5-super-vl-120b-a12b** (provider: NVIDIA).
 
+**Methodology:** The poteto-mode workflow and deterministic-guardrails-over-prose approach are based on Lauren Tan (poteto)'s "All Code Is Slop (Except Mine)" talk at SpaceXSI. Credit to Lauren Tan for poteto-mode. Official skill: https://github.com/cursor/plugins/blob/main/pstack/skills/poteto-mode/SKILL.md
+
 ## License
 [GNU GPL v2](https://www.gnu.org/licenses/gpl-2.0.html) and [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 

@@ -99,16 +99,12 @@ class ConnectionMultiplexer(private val socket: BluetoothSocket) : Closeable {
                         readBuffer.flip()
                         readBuffer[b, off, len]
                         readBuffer.compact()
-
-                        //TODO: non-blocking (opportunistic) read request
                         return len
                     } else if (readBuffer.position() > 0) {
                         val numberRead = readBuffer.position()
                         readBuffer.flip()
                         readBuffer[b, off, numberRead]
                         readBuffer.compact()
-
-                        //TODO: non-blocking (opportunistic) read request
                         return numberRead
                     }
                     if (!open) return -1

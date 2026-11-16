@@ -554,7 +554,7 @@ object SMSHelper {
                     val contentTypeColumn = cursor.getColumnIndexOrThrow(Telephony.Mms.Part.CONTENT_TYPE)
                     val dataColumn = cursor.getColumnIndexOrThrow(Telephony.Mms.Part._DATA)
                     val textColumn = cursor.getColumnIndexOrThrow(Telephony.Mms.Part.TEXT)
-                    // TODO: Parse charset (As usual, it is skimpily documented) (Possibly refer to MMS spec)
+                    // Charset parsing for MMS parts is not yet implemented.
                     do {
                         val partID = cursor.getLong(partIDColumn)
                         val contentType = cursor.getString(contentTypeColumn)

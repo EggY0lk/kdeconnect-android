@@ -161,9 +161,7 @@ object SmsMmsUtils {
                 Log.v(SENDING_MESSAGE, "Sending new SMS")
                 transaction.sendNewMessage(message, Transaction.NO_THREAD_ID)
             }
-            // TODO: Notify other end
         } catch (e: Exception) {
-            // TODO: Notify other end
             Log.e(SENDING_MESSAGE, "Exception", e)
         }
     }

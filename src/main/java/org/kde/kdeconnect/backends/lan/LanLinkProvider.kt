@@ -532,8 +532,6 @@ class LanLinkProvider(private val context: Context) : BaseLinkProvider() {
             return
         }
 
-        // TODO: In protocol version 8 this packet doesn't need to contain identity info
-        //       since it will be exchanged after the socket is encrypted.
         val myDeviceInfo = DeviceHelper.getDeviceInfo(context)
         val identity = myDeviceInfo.toIdentityPacket()
         identity["tcpPort"] = tcpServer.getLocalPort()

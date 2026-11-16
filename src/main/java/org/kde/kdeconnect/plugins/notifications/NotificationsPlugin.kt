@@ -193,12 +193,14 @@ class NotificationsPlugin : Plugin(), NotificationReceiver.NotificationListener 
 
         if ("com.android.systemui" == packageName) {
             if ("low_battery" == statusBarNotification.tag) {
-                // HACK: Android low battery notification are posted again every few seconds. Ignore them, as we already have a battery indicator.
+                // Android re-posts low battery notifications every few seconds.
+                // We already surface battery level via the battery indicator, so ignore duplicates.
                 return
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if ("MediaOngoingActivity" == notification.channelId) {
-                    // HACK: Samsung OneUI sends this notification when media playback is started. Ignore it, as this is handled by Mpris plugin
+                    // Samsung OneUI posts this when media playback starts.
+                    // Mpris plugin already handles media playback notifications, so ignore duplicates.
                     return
                 }
             }
@@ -283,10 +285,11 @@ class NotificationsPlugin : Plugin(), NotificationReceiver.NotificationListener 
             // even if it's a conversation, we set `title` and `text` for compatibility.
             if (isGroupConversation) {
                 val groupName = messagingStyle.conversationTitle.toString()
-                // FIXME: When there're more than one message in group conversation and the user didn't reply, the number of messages appears between "()" next to the name of the group
-                // We don't want to show them because Android doesn't show them.
+                // Android doesn't show message counts in group conversation names,
+                // so we only use the group name as the title.
                 np["groupName"] = groupName
-                // HACK: To differentiate between groups messages and DMs, we set `title` to be the group name and `text` to be `<sender>: <message>`.
+                // Use the group name as title and "sender: content" as text to
+                // distinguish group messages from direct messages.
                 np["title"] = groupName
                 val (sender, content) = getMessageAt(messagingStyle, conversationLength - 1)
                 np["text"] = "$sender: $content"

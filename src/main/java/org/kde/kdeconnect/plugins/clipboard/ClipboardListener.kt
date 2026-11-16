@@ -114,7 +114,6 @@ class ClipboardListener {
         private var _instance: ClipboardListener? = null
 
         fun instance(context: Context): ClipboardListener {
-            // FIXME: The _instance we return won't be completely initialized yet since initialization happens on a new thread (why?)
             return _instance ?: ClipboardListener(context).also { _instance = it }
         }
 

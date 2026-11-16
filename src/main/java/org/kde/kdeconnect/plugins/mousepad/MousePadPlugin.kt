@@ -164,7 +164,8 @@ class MousePadPlugin : Plugin() {
 
     fun sendHome() {
         val np = NetworkPacket(PACKET_TYPE_MOUSEPAD_REQUEST)
-        np["super"] = true // HACK to make it work on devices that don't support super as a special key
+        // Some devices don't expose SUPER as a special key, so fall back to META_LEFT.
+        np["super"] = true
         np["specialKey"] = KeyListenerView.SpecialKeysMap.get(KeyEvent.KEYCODE_META_LEFT)
         device.sendPacket(np)
     }

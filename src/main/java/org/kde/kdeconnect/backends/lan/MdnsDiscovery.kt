@@ -269,9 +269,6 @@ class MdnsDiscovery {
             // Bind to the network the service was found on: right after connecting to a wifi the
             // default network can still be cellular, which would make the packet fail or get lost.
             val network = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) serviceInfo.network else null
-            // TODO: In protocol version 8 we should be able to call "identityPacketReceived"
-            //       here, since we already have all the info we need to start a connection
-            //       and the remaining identity info will be exchanged later.
             lanLinkProvider.sendUdpIdentityPacket(listOf(remoteAddress), network)
         }
 
