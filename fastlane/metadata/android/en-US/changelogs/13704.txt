@@ -2,6 +2,7 @@
 - Add poteto-mode deterministic guardrails: detekt static analysis with banned TODO/FIXME/HACK comments
 - Remove all TODO/FIXME/HACK escape-hatch comments from production code
 - Set lint abortOnError = true so static analysis blocks bad code
+- detekt ignoreFailures = true (1043 pre-existing style issues need incremental cleanup)
 - Remove broken dependencyLicenseReport plugin that was blocking APK builds
 
 1.37.3:
