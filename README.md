@@ -50,3 +50,7 @@ Please know that all translations for all KDE apps are handled by the [localizat
 [GNU GPL v2](https://www.gnu.org/licenses/gpl-2.0.html) and [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 
 If you are reading this from GitHub, you should know that this is a fork of the [KDE Project repo](https://invent.kde.org/network/kdeconnect-android/) with scoped storage fixes applied.
+
+## Credits
+
+Fork fixes (scoped storage file receive, auto-copy to Download/kde_connect/) implemented with **Hermes Agent** (Nous Research), using **OpenCode CLI**, powered by **nvidia/nemotron-3.5-super-vl-120b-a12b** (provider: NVIDIA).
