@@ -372,15 +372,18 @@ class CompositeReceiveFileJob(device: Device, onFinished: (ShareJob) -> Unit)
             }
         }
 
-        // Copy received file to public Download/KDE Connect/ so Gallery and file managers can see it
-        copyReceivedFileToPublicDownloads(fileDocument)
-
-        // Index the file in the MediaStore so system scanners (gallery, downloads, file managers) detect it immediately
-        Log.i("SharePlugin", "Indexing file in MediaStore")
-        MediaStoreHelper.indexFile(device.context, fileDocument.uri)
+        // Copy received file to public Download/KDE Connect/ so Gallery and file managers can see it,
+        // then ask the media scanner to index the copy so Gallery detects it immediately.
+        val copiedFile = copyReceivedFileToPublicDownloads(fileDocument)
+        if (copiedFile != null) {
+            MediaStoreHelper.scanFile(device.context, copiedFile.absolutePath, fileDocument.type)
+        } else {
+            Log.i("SharePlugin", "Indexing file in MediaStore via content URI")
+            MediaStoreHelper.indexFile(device.context, fileDocument.uri)
+        }
     }
 
-    private fun copyReceivedFileToPublicDownloads(fileDocument: DocumentFile) {
+    private fun copyReceivedFileToPublicDownloads(fileDocument: DocumentFile): File? {
         try {
             val publicDownloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             val kdeConnectDir = File(publicDownloadsDir, "kde_connect")
@@ -396,10 +399,12 @@ class CompositeReceiveFileJob(device: Device, onFinished: (ShareJob) -> Unit)
                     }
                 }
                 Log.i("SharePlugin", "Copied received file to public Download/kde_connect/")
+                return destFile
             }
         } catch (e: Exception) {
             Log.w("SharePlugin", "Failed to copy received file to public Downloads", e)
         }
+        return null
     }
 
     private fun openFile(fileDocument: DocumentFile) {
