@@ -10,9 +10,11 @@ import android.app.DownloadManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.os.SystemClock
+import android.provider.MediaStore
 import android.util.Log
 import androidx.annotation.GuardedBy
 import androidx.core.content.FileProvider
@@ -370,9 +372,34 @@ class CompositeReceiveFileJob(device: Device, onFinished: (ShareJob) -> Unit)
             }
         }
 
+        // Copy received file to public Download/KDE Connect/ so Gallery and file managers can see it
+        copyReceivedFileToPublicDownloads(fileDocument)
+
         // Index the file in the MediaStore so system scanners (gallery, downloads, file managers) detect it immediately
         Log.i("SharePlugin", "Indexing file in MediaStore")
         MediaStoreHelper.indexFile(device.context, fileDocument.uri)
+    }
+
+    private fun copyReceivedFileToPublicDownloads(fileDocument: DocumentFile) {
+        try {
+            val publicDownloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val kdeConnectDir = File(publicDownloadsDir, "kde_connect")
+            if (!kdeConnectDir.exists()) {
+                kdeConnectDir.mkdirs()
+            }
+            val destFile = File(kdeConnectDir, fileDocument.name ?: "received_file")
+            val inputStream = device.context.contentResolver.openInputStream(fileDocument.uri)
+            if (inputStream != null) {
+                inputStream.use { input ->
+                    java.io.FileOutputStream(destFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                Log.i("SharePlugin", "Copied received file to public Download/kde_connect/")
+            }
+        } catch (e: Exception) {
+            Log.w("SharePlugin", "Failed to copy received file to public Downloads", e)
+        }
     }
 
     private fun openFile(fileDocument: DocumentFile) {
