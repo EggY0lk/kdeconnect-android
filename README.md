@@ -13,12 +13,10 @@ All this without wires, over the already existing Wi-Fi network, and using TLS e
 
 ## About this fork
 
-This fork includes fixes for Android 11+ scoped storage:
+Synced with upstream `KDE/kdeconnect-android` master and maintained separately. Includes:
 
-- **File receive fix**: On Android 11+, scoped storage blocks direct file access to public shared directories. Received files now save to the app's external files directory instead of failing.
-- **Auto-copy to public Downloads**: Received files are automatically copied to `Download/kde_connect/` so they appear in Gallery, Photos, and your file manager immediately.
-
-This fork is maintained separately from the upstream KDE project.
+- **Upstream sync**: 5 years of KDE changes merged (features, bug fixes, translations).
+- **Scoped storage fixes**: On Android 11+, received files save to the app's external files directory and are auto-copied to `Download/kde_connect/` for Gallery visibility.
 
 ## How to install this app
 
