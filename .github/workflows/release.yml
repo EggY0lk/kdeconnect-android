@@ -28,7 +28,12 @@ jobs:
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
         run: |
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-37" "build-tools;34.0.0"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-36" "build-tools;34.0.0"
+
+      - name: Override compileSdk to 36 for CI
+        run: |
+          sed -i 's/compileSdk = 37/compileSdk = 36/' build.gradle.kts
+          sed -i 's/targetSdk = 37/targetSdk = 36/' build.gradle.kts
 
       - name: Build debug APK
         env:
