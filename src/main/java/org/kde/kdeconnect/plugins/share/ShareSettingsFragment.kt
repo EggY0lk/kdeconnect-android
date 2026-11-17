@@ -108,12 +108,20 @@ class ShareSettingsFragment : PluginSettingsFragment() {
                     }
                 }
             }
+            // On Android 11+, scoped storage blocks writing to public shared directories like Download.
+            // Fall back to the app's external files directory which is always writable.
+            val defaultDir: File = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+                    ?: Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            } else {
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            }
             try {
-                getDefaultDestinationDirectory().mkdirs()
+                defaultDir.mkdirs()
             } catch (e: Exception) {
                 Log.e("KDEConnect", "Exception", e)
             }
-            return DocumentFile.fromFile(getDefaultDestinationDirectory())
+            return DocumentFile.fromFile(defaultDir)
         }
 
         fun saveStorageLocationPreference(context: Context, uri: Uri) {

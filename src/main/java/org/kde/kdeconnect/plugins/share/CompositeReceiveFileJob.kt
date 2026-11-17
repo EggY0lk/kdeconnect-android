@@ -8,9 +8,13 @@ package org.kde.kdeconnect.plugins.share
 
 import android.app.DownloadManager
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.SystemClock
+import android.provider.MediaStore
 import android.util.Log
 import androidx.annotation.GuardedBy
 import androidx.core.content.FileProvider
@@ -284,8 +288,15 @@ class CompositeReceiveFileJob(device: Device, onFinished: (ShareJob) -> Unit)
     private fun getDocumentFileFor(filename: String, open: Boolean): DocumentFile {
         val destinationFolderDocument: DocumentFile
 
-        // If the file should be opened immediately store it in the standard location to avoid the FileProvider trouble (See ReceiveNotification::setURI)
-        if (open || !ShareSettingsFragment.isCustomDestinationEnabled(device.context)) {
+        // On Android 11+ (API 30+), scoped storage blocks direct file:// URI access to public
+        // shared directories like Download. The requestLegacyExternalStorage manifest flag
+        // is ignored on Android 11+, so we must use either a SAF tree URI (custom destination)
+        // or the app's external files directory (always writable, app-private).
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !ShareSettingsFragment.isCustomDestinationEnabled(device.context)) {
+            val destDir: File = device.context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+                ?: ShareSettingsFragment.getDefaultDestinationDirectory()
+            destinationFolderDocument = DocumentFile.fromFile(destDir)
+        } else if (open || !ShareSettingsFragment.isCustomDestinationEnabled(device.context)) {
             val defaultPath = ShareSettingsFragment.getDefaultDestinationDirectory().absolutePath
             destinationFolderDocument = DocumentFile.fromFile(File(defaultPath))
         } else {
@@ -361,9 +372,39 @@ class CompositeReceiveFileJob(device: Device, onFinished: (ShareJob) -> Unit)
             }
         }
 
-        // Index the file in the MediaStore so system scanners (gallery, downloads, file managers) detect it immediately
-        Log.i("SharePlugin", "Indexing file in MediaStore")
-        MediaStoreHelper.indexFile(device.context, fileDocument.uri)
+        // Copy received file to public Download/KDE Connect/ so Gallery and file managers can see it,
+        // then ask the media scanner to index the copy so Gallery detects it immediately.
+        val copiedFile = copyReceivedFileToPublicDownloads(fileDocument)
+        if (copiedFile != null) {
+            MediaStoreHelper.scanFile(device.context, copiedFile.absolutePath, fileDocument.type)
+        } else {
+            Log.i("SharePlugin", "Indexing file in MediaStore via content URI")
+            MediaStoreHelper.indexFile(device.context, fileDocument.uri)
+        }
+    }
+
+    private fun copyReceivedFileToPublicDownloads(fileDocument: DocumentFile): File? {
+        try {
+            val publicDownloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val kdeConnectDir = File(publicDownloadsDir, "kde_connect")
+            if (!kdeConnectDir.exists()) {
+                kdeConnectDir.mkdirs()
+            }
+            val destFile = File(kdeConnectDir, fileDocument.name ?: "received_file")
+            val inputStream = device.context.contentResolver.openInputStream(fileDocument.uri)
+            if (inputStream != null) {
+                inputStream.use { input ->
+                    java.io.FileOutputStream(destFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                Log.i("SharePlugin", "Copied received file to public Download/kde_connect/")
+                return destFile
+            }
+        } catch (e: Exception) {
+            Log.w("SharePlugin", "Failed to copy received file to public Downloads", e)
+        }
+        return null
     }
 
     private fun openFile(fileDocument: DocumentFile) {

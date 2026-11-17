@@ -1,0 +1,58 @@
+rules:
+  comments.ForbiddenComment:
+    active: true
+    parameters:
+      values: ["TODO:", "FIXME:", "HACK:", "XXX:", "STOPSHIP:"]
+
+  style.WildcardImport:
+    active: true
+
+  style.UnusedImports:
+    active: true
+
+  style.UselessPostfixExpression:
+    active: true
+
+  style.UselessCallOnNotNull:
+    active: true
+
+  style.UnnecessaryParentheses:
+    active: true
+
+  style.ReturnCount:
+    active: true
+    parameters:
+      max: 10
+
+  style.ThrowCount:
+    active: true
+    parameters:
+      max: 2
+
+  complexity.NestedBlockDepth:
+    active: true
+    parameters:
+      maxNestedBlocks: 5
+
+  complexity.MaxLineLength:
+    active: true
+    parameters:
+      maxLineLength: 120
+
+  style.NewLineAtEndOfFile:
+    active: true
+
+  naming.FunctionNaming:
+    active: true
+
+  naming.ParameterNameNaming:
+    active: true
+
+  naming.PropertyNaming:
+    active: true
+
+  naming.ClassNaming:
+    active: true
+
+  potential-bugs.EmptyCatchBlock:
+    active: true

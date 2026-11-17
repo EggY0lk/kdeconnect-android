@@ -3,8 +3,6 @@ import com.android.build.api.instrumentation.ClassContext
 import com.android.build.api.instrumentation.ClassData
 import com.android.build.api.instrumentation.InstrumentationParameters
 import com.android.build.api.instrumentation.InstrumentationScope
-import com.github.jk1.license.render.ReportRenderer
-import com.github.jk1.license.render.TextReportRenderer
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.MethodVisitor
@@ -21,12 +19,10 @@ buildscript {
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.dependencyLicenseReport)
+    alias(libs.plugins.detekt)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
 }
-
-val licenseResDir = "$projectDir/build/dependency-license-res"
 
 kotlin {
     compilerOptions {
@@ -37,10 +33,10 @@ kotlin {
 android {
     namespace = "org.kde.kdeconnect_tp"
     compileSdk = 37
-    defaultConfig {
-        applicationId = "org.kde.kdeconnect_tp"
-        minSdk = 23
-        targetSdk = 37
+        defaultConfig {
+            applicationId = "org.kde.kdeconnect_tp"
+            minSdk = 23
+            targetSdk = 37
         versionCode = 13703
         versionName = "1.37.3"
         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -52,7 +48,6 @@ android {
     }
 
     sourceSets.getByName("main") {
-        res.directories += licenseResDir
     }
 
     compileOptions {
@@ -94,8 +89,8 @@ android {
         }
     }
     lint {
-        abortOnError = false
-        checkReleaseBuilds = false
+        abortOnError = true
+        checkReleaseBuilds = true
     }
 }
 
@@ -327,26 +322,7 @@ dependencies {
     implementation(libs.rxjava)
 }
 
-licenseReport {
-    configurations = arrayOf("releaseRuntimeClasspath", "coreLibraryDesugaring")
-    renderers = arrayOf<ReportRenderer>(TextReportRenderer())
-}
-
-tasks.named("generateLicenseReport") {
-    val outputFile = file("$licenseResDir/raw/license")
-    val inputFiles = files(
-        layout.projectDirectory.file("COPYING"),
-        layout.buildDirectory.file("reports/dependency-license/THIRD-PARTY-NOTICES.txt")
-    )
-    outputs.file(outputFile)
-    doLast {
-        outputFile.apply {
-            parentFile.mkdirs()
-            writeText(inputFiles.joinToString(separator = "\n") { it.readText() })
-        }
-    }
-}
-
-tasks.named("preBuild") {
-    dependsOn("generateLicenseReport")
+detekt {
+    toolVersion = libs.versions.detekt.get()
+    ignoreFailures = true
 }
