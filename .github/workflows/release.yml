@@ -51,6 +51,7 @@ jobs:
           else
             RELEASE_TAG="auto-${GITHUB_SHA::8}"
             git tag "$RELEASE_TAG"
+            git push origin "$RELEASE_TAG"
             RELEASE_TITLE="Auto release from master ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
             RELEASE_NOTES="Auto-built debug APK from master commit ${GITHUB_SHA::8}"
           fi
