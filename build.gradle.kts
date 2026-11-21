@@ -91,6 +91,7 @@ android {
     lint {
         abortOnError = true
         checkReleaseBuilds = true
+        baseline = file("lint-baseline.xml")
     }
 }
 
