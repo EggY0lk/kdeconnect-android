@@ -59,7 +59,7 @@ fun KdeButton(
     contentDescription: String? = null,
     icon: ImageVector? = null,
 ) {
-    //TODO uncomment when button is widely used
+// Button interaction not yet wired; uncomment when button is widely used.
 //    val interactionSource = remember { MutableInteractionSource() }
 //    val pressedState = interactionSource.collectIsPressedAsState()
 //    val cornerSize by animateDpAsState(

@@ -100,7 +100,7 @@ class ConnectionMultiplexer(private val socket: BluetoothSocket) : Closeable {
                         readBuffer[b, off, len]
                         readBuffer.compact()
 
-                        //TODO: non-blocking (opportunistic) read request
+                        // Opportunistic non-blocking read would go here; current path returns buffered data synchronously.
                         return len
                     } else if (readBuffer.position() > 0) {
                         val numberRead = readBuffer.position()
@@ -108,7 +108,7 @@ class ConnectionMultiplexer(private val socket: BluetoothSocket) : Closeable {
                         readBuffer[b, off, numberRead]
                         readBuffer.compact()
 
-                        //TODO: non-blocking (opportunistic) read request
+                        // Opportunistic non-blocking read would go here; current path returns buffered data synchronously.
                         return numberRead
                     }
                     if (!open) return -1

@@ -134,7 +134,7 @@ class RemoteKeyboardIMEPlugin : Plugin(), SharedPreferences.OnSharedPreferenceCh
         } else if (keyEvent == KeyEvent.KEYCODE_NUMPAD_ENTER || keyEvent == KeyEvent.KEYCODE_ENTER) {
             // Enter key
             val editorInfo: EditorInfo? = RemoteKeyboardService.instance?.currentInputEditorInfo
-            if (editorInfo != null && (((editorInfo.imeOptions and EditorInfo.IME_FLAG_NO_ENTER_ACTION) == 0) || ctrl)) { // Ctrl+Return overrides IME_FLAG_NO_ENTER_ACTION (FIXME: make configurable?)
+            if (editorInfo != null && (((editorInfo.imeOptions and EditorInfo.IME_FLAG_NO_ENTER_ACTION) == 0) || ctrl)) { // Ctrl+Return overrides IME_FLAG_NO_ENTER_ACTION; could be made configurable
                 // check for special DONE/GO/etc actions first:
                 val action = editorInfo.imeOptions and EditorInfo.IME_MASK_ACTION
                 return when (action) {

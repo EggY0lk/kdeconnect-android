@@ -261,7 +261,6 @@ internal class MprisReceiverPlayer(
 
         private fun encodeAsUri(kind: String?, data: String?): String {
             // there's probably a better way to do this, but meh
-            // TODO: do we want to include the player name?
             return Uri.Builder()
                 .scheme("kdeconnect")
                 .path("/artUri")

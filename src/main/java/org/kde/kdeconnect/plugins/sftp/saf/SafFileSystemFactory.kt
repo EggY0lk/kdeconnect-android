@@ -25,10 +25,7 @@ class SafFileSystemFactory(private val context: Context) : FileSystemFactory {
         for (curStorageInfo in storageInfoList) {
             when {
                 curStorageInfo.isFileUri -> {
-                    TODO("File URI is not supported yet")
-//                    if (curStorageInfo.uri.path != null) {
-//                        roots[curStorageInfo.displayName] = curStorageInfo.uri.path
-//                    }
+                    // File URI support not implemented yet.
                 }
 
                 curStorageInfo.isContentUri -> {

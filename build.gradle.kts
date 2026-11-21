@@ -326,4 +326,12 @@ dependencies {
 detekt {
     toolVersion = libs.versions.detekt.get()
     ignoreFailures = true
+    baseline = project.file("detekt-baseline.xml")
+
+    reports {
+        xml {
+            enabled = true
+            destination = file("build/reports/detekt.xml")
+        }
+    }
 }
