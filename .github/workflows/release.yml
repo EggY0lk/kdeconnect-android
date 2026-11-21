@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - 'v*'
+    branches:
+      - master
 
 jobs:
   build-and-release:
@@ -42,9 +44,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG=${GITHUB_REF#refs/tags/}
-          gh release create "$TAG" \
-            --title "$TAG" \
-            --notes "Auto-built debug APK from $TAG" \
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            RELEASE_TAG=${GITHUB_REF#refs/tags/}
+            RELEASE_TITLE="Release $RELEASE_TAG"
+            RELEASE_NOTES="Auto-built debug APK from $RELEASE_TAG"
+          else
+            RELEASE_TAG="auto-${GITHUB_SHA::8}"
+            git tag "$RELEASE_TAG"
+            RELEASE_TITLE="Auto release from master ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            RELEASE_NOTES="Auto-built debug APK from master commit ${GITHUB_SHA::8}"
+          fi
+          gh release create "$RELEASE_TAG" \
+            --title "$RELEASE_TITLE" \
+            --notes "$RELEASE_NOTES" \
             --repo "$GITHUB_REPOSITORY" \
             app/build/outputs/apk/debug/kdeconnect-android-debug.apk
